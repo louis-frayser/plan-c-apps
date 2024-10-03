@@ -52,7 +52,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     (let ((aw (glgui-width-get))
           (ah (glgui-height-get)))
-      (glgui-box gui 0 0 aw ah DarkGreen)
+      (glgui-box gui 0 0 aw ah Blue)
       (set! form (glgui-uiform gui 0 0 aw ah)))
 
     ;; Set the sandbox up to be the current directory and use the above example as the script
