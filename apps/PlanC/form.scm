@@ -17,23 +17,19 @@
 		  #f
 		  ("Done" main)
 		  (spacer)
-					   
+		  
 		  ;; Dropdown
 		  (dropdown id category
 			    label "Pick a category:"
 			    entries ,*categories)
 		  (spacer)
-					   
+		  
 		  ;; Dropdown
-
 		  (dropdown id activity
 			    label "Pick an activity:"
 			    entries ,(activities-for-category ))
 		  (spacer)
-					   
-	
-					;
-		  (spacer)		;
+
 		  ;; Simple radio box with a callback popup from one of the options.
 		  (radiobox id aradio
 			    text "Pick Yes"
@@ -66,5 +62,4 @@
 		  (label text "This is a demo app of the uiform module in LambdaNative, a cross-platform development environment written in Scheme. See lambdanative.org")
 		  (spacer)
 		  (label text "Copyright (c) 2009-2018\nUniversity of British Columbia")
-		  )
-		 )))
+		  ))))
