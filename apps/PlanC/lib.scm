@@ -18,3 +18,5 @@
         (and (not (null-list? lis))
              (if (pred (car lis)) n (lp (cdr lis) (+ n 1)))))))
 
+;;; Settings
+(define *tz -25200) ;; offset in seconds from UTC
