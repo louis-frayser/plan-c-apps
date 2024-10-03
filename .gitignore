@@ -24,3 +24,5 @@ attic
 .project
 .classpath
 .settings/
+Attic
+\#*
