@@ -3,8 +3,8 @@
 (define demouiform:example
   (list->table `(
 		 (main
-		  "Demo UI Form"
-		  ("Widgets" widgets)
+		  "Plan C"
+		  ("Activity Entry" catsel)
 		  ("About" about)
 		  (spacer height 200)
 		  (label text "Hello from LambdaNative" size header)
@@ -12,25 +12,33 @@
 		  ;; Show an image (file listed in EMBED)
 		  (image file "LN_logo.png")
 		  )
-		 (widgets
-		  "Activities"
-		  #f
-		  ("Done" main)
+		 (catsel
+		  "Categories"
+		  ("Back" main)
+		  ("Activity" widgets)
 		  (spacer)
-		  
+
 		  ;; Dropdown
 		  (dropdown id category
 			    label "Pick a category:"
 			    entries ,*categories)
 		  (spacer)
-		  
-		  ;; Dropdown
-		  (dropdown id activity
-			    label "Pick an activity:"
-			    entries ,(activities-for-category ))
+		  )
+		 (widgets
+		  "Activities"
+		  #f
+		  ("Done" main)
+		  (spacer)
+
+		  ,(lambda () (set! *category (dbget 'category))
+			   ;; Dropdown
+			   `(dropdown id activity
+				      label "Pick an activity:"
+				      entries ,(activities-for-category )))
 		  (spacer)
 
 		  ;; Simple radio box with a callback popup from one of the options.
+
 		  (radiobox id aradio
 			    text "Pick Yes"
 			    left ("Yes" "1" #f)
@@ -48,12 +56,14 @@
 
 		  ;; Button with action callback that returns the page you want to go to ;
 		  (button h 75 size header indent 0.05 rounded #t text "Go Back" action ,(lambda () 'main)) ;
-		  (spacer)
-		  ;; slider 
-		  (slider id sliderval number #t min 0 max 100 default 50 labels ("min" "max"))
-		  (spacer)
-		  (label text "For more features that you can include in a script see the LNhealth app \"Demo Widgets\". Look at the main.sx file in the sandbox folder which is located at https://github.com/part-cw/LNhealth/tree/master/apps/WidgetDemo" align left size small)
 		  )
+		 (spacer)
+
+		 ;; slider
+		 (slider id sliderval number #t min 0 max 100 default 50 labels ("min" "max"))
+		 (spacer)
+		 (label text "For more features that you can include in a script see the LNhealth app \"Demo Widgets\". Look at the main.sx file in the sandbox folder which is located at https://github.com/part-cw/LNhealth/tree/master/apps/WidgetDemo" align left size small)
+
 		 (about
 		  "About"
 		  ("Back" main)
