@@ -3,8 +3,8 @@
 (define *categories 
   '("Engineering" "Fitness" "Life" "Maitenance" "Media"
     "MusicPractice" "PIM"))
+(define *category (list-ref *categories 0))
 
-(define (categories) '("abc" "def" "ghi"))
 
 (define (actions-by-cat-ix i)
   (list-ref
@@ -17,12 +17,14 @@
       "Percussion" "Piano/Kbd" "Recorder" "Trombone" "Trumpet/Flgl" "Violin" "Voice")
      ("Finance" "Music Prep" "Online Shopping" "Personal Tech" "Planning")) i)) 
 
-(define (actions-for-cat cat)
-   (actions-by-cat-ix
-    (list-index
-     (lambda (s) (string=? s cat) ) *categories)))
+(define (activities-for-category)
+  ;; Activity list for currently selecte Category
+  (actions-by-cat-ix
+   (list-index
+    (lambda (s) (string=? s *category) ) *categories)))
 
 
-#;(display (actions-for-cat "Music Practice"))
+
+
 
 
