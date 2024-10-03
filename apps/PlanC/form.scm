@@ -16,7 +16,7 @@
 		 (catsel
 		  "Categories"
 		  ("Back" main)
-		  ("Activity" widgets)
+		  #f
 		  (spacer)
 		  ;; Dropdown
 		  (dropdown id category
@@ -33,6 +33,14 @@
 		  "Activities"
 		  #f
 		  ("Done" main)
+		  (spacer)
+
+		  ;; Show Category
+		  ,(lambda () (set! *category (dbget 'category))
+			   (let ((s (if *category
+					(string-append "Category: " *category)
+					"Go select a category!")))
+			     `(label text ,s)))
 		  (spacer)
 
 		  ,(lambda () (set! *category (dbget 'category))
@@ -86,13 +94,14 @@
 		     (if (string=? (dbget 'aradio "") "1")
 			 '(checkbox id checky indent 0.3 text "Visible if you said Yes")
 			 '(spacer height 0)))
-		  (spacer))
-;;; About
-		 (about
-		  "About"
-		  ("Back" main)
-		  #f
-		  (spacer height 50)
-		  (label text "Plan-C App - time-tracking for musicians. Based on the uiform module in LambdaNative, a cross-platform development environment written in Scheme. See lambdanative.org")
 		  (spacer)
-		  (label text "Copyright (c) 2024 Louis Frayser <louis.frayser@gmail.com>")))))
+;;; About
+		  (about
+		   "About"
+		   ("Back" main)
+		   #f
+		   (spacer height 50)
+		   (label text "Plan-C App - time-tracking for musicians. Based on the uiform module in LambdaNative, a cross-platform development environment written in Scheme. See lambdanative.org")
+		   (spacer)
+		   (label text "Copyright (c) 2024 Louis Frayser <louis.frayser@gmail.com>"))
+		  ))))
