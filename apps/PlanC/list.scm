@@ -18,10 +18,10 @@
      ("Finance" "Music Prep" "Online Shopping" "Personal Tech" "Planning")) i)) 
 
 (define (activities-for-category)
-  ;; Activity list for currently selecte Category
+  ;; Activity list for currently selected Category
   (actions-by-cat-ix
    (list-index
-    (lambda (s) (string=? s *category) ) *categories)))
+    (lambda (s) (string=? s *category ) ) *categories)))
 
 
 
