@@ -31,11 +31,34 @@
 		  (spacer)
 
 		  ,(lambda () (set! *category (dbget 'category))
-			   ;; Dropdown
-			   `(dropdown id activity
-				      label "Pick an activity:"
-				      entries ,(activities-for-category )))
+			   (if *category
+			       ;; Dropdown
+			       `(dropdown id activity
+					  label "Pick an activity:"
+					  entries ,(activities-for-category ))
+
+			       ;; Button with action callback that returns the page you want to go to ;
+			       `(button h 75
+					size header
+					indent 0.05
+					rounded #t
+					text "Select a Category 1st!"
+					action ,(lambda () 'catsel)))
+			   )
 		  (spacer)
+
+		  ;; Start Time
+		   (dateentry text "Date:" indent 0.4 id sdate)
+		   (timeentry text "Time:" indent 0.4 id stime-only)
+		   (spacer)
+
+		  ;; Duration
+		   (timeentry text "Duration:" indent 0.4 id duration)
+		   (spacer)
+
+		  ;; Submit
+		   (button text "Submit")
+		   (spacer)
 
 		  ;; Simple radio box with a callback popup from one of the options.
 
@@ -54,14 +77,6 @@
 			 '(spacer height 0)))
 		  (spacer)
 
-		  ;; Button with action callback that returns the page you want to go to ;
-		  (button h 75 size header indent 0.05 rounded #t text "Go Back" action ,(lambda () 'main))
-
-		  (spacer)
-
-		  ;; slider
-		  (slider id sliderval number #t min 0 max 100 default 50 labels ("min" "max"))
-		  (spacer)
 		  (label text "For more features that you can include in a script see the LNhealth app \"Demo Widgets\". Look at the main.sx file in the sandbox folder which is located at https://github.com/part-cw/LNhealth/tree/master/apps/WidgetDemo" align left size small))
 
 		 (about
