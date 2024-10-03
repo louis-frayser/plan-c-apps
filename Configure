@@ -1,0 +1,7 @@
+#! /bin/sh
+#
+## ${PROJECT_HOME}/Configure
+export SYS_PATH=${PWD} 
+cd ../lambdanative
+./configure "$@"
+
