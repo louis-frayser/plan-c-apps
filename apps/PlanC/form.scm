@@ -78,23 +78,6 @@
 		    ;; Submit
 		  (button text "Submit")
 		  (spacer)
-
-		  ;; Simple radio box with a callback popup from one of the options.
-
-		  (radiobox id aradio
-			    text "Pick Yes"
-			    left ("Yes" "1" #f)
-			    right ("No" "0" ("I said choose yes!" ("OK" ,(lambda ()
-									   ;; Don't allow No, set it to blank
-									   (dbclear 'aradio)
-									   ;; Don't go to another page
-									   #f)))))
-		  ;; Checkbox that appears only if above radiobox is Yes
-		  ,(lambda ()
-		     (if (string=? (dbget 'aradio "") "1")
-			 '(checkbox id checky indent 0.3 text "Visible if you said Yes")
-			 '(spacer height 0)))
-		  (spacer)
 ;;; About
 		  (about
 		   "About"
