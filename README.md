@@ -1,4 +1,4 @@
-# Plan C (PlanC or Lucho)
+# Plan C Apps(Src dir is PlanC or Lucho)
 This project houses open-source (BSD licensed) music-related applications, created using the [LambdaNative](http://www.lambdanative.org) cross-platform development environment.
 
 ## Applications
@@ -9,4 +9,4 @@ This project houses open-source (BSD licensed) music-related applications, creat
 
 ## History
 Plan C is derived by a web-based Racket (scheme) app of the same name.
-The original app in on [GitHub](http://github.com/louis-frayser)
+The original app in on [GitHub](https://github.com/louis-frayser/plan-c.git)
