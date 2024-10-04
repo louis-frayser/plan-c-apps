@@ -1,4 +1,4 @@
-(include "list.scm")
+(include "shema.scm")
 
 ;;; Main Page
 (define &main-page
