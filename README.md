@@ -12,8 +12,14 @@ Plan C is derived by a web-based Racket (scheme) app of the same name.
 The original app in on [GitHub](https://github.com/louis-frayser/plan-c.git)
 
 ## Install
+*** Fonts
 I copied the Bahaus fonts t ~/lambdanative/fonts/Bahaus and never tried using them from the local fonts dir.
-".Configure PlanC android" to build for Android. The output is placed in ~/release/PlanC. Where I run aa script called sign_apk, because the standard tools are a little out of date.
 
-For the Linux build, I run ./clg which build the app and places it in ~/apps/PlanC, then launches it.
+*** Building
+[1] "./make_antroid" to configure and build for Android. The output is placed in ~/release/PlanC. The script signs the .apk as the framework tools are too out of date.
+
+[2] For the Linux build, I run ./clg.sh which build the app and places it in ~/apps/PlanC, then launches it.
 .
+
+*** Caveats
+There is a tool dx that I had to copy from an older version of the sdk.  D8 is what the new tool is called, but the framework currently want's the missing dx.
