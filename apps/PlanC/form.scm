@@ -26,7 +26,7 @@
 	      entries ,*categories)
     ,(lambda () (set! *category (dbget 'category)) '(spacer))
     ,(lambda ()
-       (if *category
+       (if (dbget 'category)
 	   `(button text "Continue" action ,(lambda () 'widgets))
 	   '(spacer)))))
 
