@@ -1,5 +1,5 @@
 (define (null-list? xs)(eq? xs '()))
-
+;;; ----------------- Lists ------------------------------------
 ;;; srfi-1
 (define (list-index pred lis1 . lists)
   #;(check-arg procedure? pred list-index)
@@ -18,13 +18,15 @@
         (and (not (null-list? lis))
              (if (pred (car lis)) n (lp (cdr lis) (+ n 1)))))))
 
-;;; Settings
+;;; ----------------- Settings------------------------------------
 (define *tz -25200) ;; offset in seconds from UTC
 (define %user% "frayser")
 (define %dbpath (string-append (system-directory) "/plan-c-sqlite.db"))
 (define (current-date-local-string)
   (date->string (current-date *tz) "~Y-~M-~d ~H:~M"))
 
+
+;;; -------------- Database ----------------------------------------
 ;;; The on-disk database
 ;;; Verify an open db with tables created
 (define *_db #f)
@@ -57,3 +59,18 @@
 	  (apply string-append (map qq (list ctime  cat  act  stm dur )))
 	  "'" %user% "' );")))
 	(sqlite-query (get-db) sql)))
+
+;;; Read the entire database
+(define (get-assocs) ; Return list of lists
+  (sqllite-query (get-db)
+		 "SELECT ctime, category, activity,stime, duration \
+                           FROM assocs \
+                           ORDER by ctime desc;"))
+
+;;; ------------------------ Strings -------------------------------
+(define (setw string width)
+  (define w (string-length string))
+  (cond
+    ((< w width) (string-append string  (make-string  (- width w) #\space)))
+    ((> w width) (substring string 0 width))
+    (else string)))

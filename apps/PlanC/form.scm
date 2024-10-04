@@ -1,4 +1,4 @@
-(include "shema.scm")
+(include "schema.scm")
 
 ;;; Main Page
 (define &main-page
@@ -48,9 +48,19 @@
 
     (label text "Copyright (c) 2024 Louis Frayser <louis.frayser@gmail.com>")))
 
+(define &history-page
+  (let(( lines (string-mapconcat (get-assocs) " "  (lambda(s)
+						     (setw s 16)))))
+    `(history
+      "Activity History"
+      ("Activity" widgets)
+      #f
+      (list entries ,lines))))
+
 
 (define demouiform:example
   (list->table `(,&main-page
 		 ,&entry-page
 		 ,&activities-page
-		 ,&about-page)))
+		 ,&about-page
+		 ,&history-page)))
