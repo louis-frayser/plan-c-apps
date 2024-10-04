@@ -5,7 +5,7 @@ clg(){ local x="$1"
         ./${cfg:-configure} "$x" &&\
         SYSPATH=$${PWD} make -C ../lambdanative
         cd ~/apps
-        unzip -o $(ls ~/.cache/lambdanative/packages/$x*.zip|tail -1)
+        unzip -o $(ls -tr ~/.cache/lambdanative/packages/$x*.zip|tail -1)
         cd $x
         chmod +x $x
         echo "Invoking $PWD/$x..."
