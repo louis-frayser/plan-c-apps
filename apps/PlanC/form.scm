@@ -91,7 +91,7 @@
 				      (dbstore ctm cat act sdt dur )
 				      'main)
 				    #f)))
-		    (spacer)
+		    (spacer))
 ;;; About
 		    (about
 		     "About"
@@ -100,5 +100,6 @@
 		     (spacer height 50)
 		     (label text "Plan-C App - time-tracking for musicians. Based on the uiform module in LambdaNative, a cross-platform development environment written in Scheme. See lambdanative.org")
 		     (spacer)
+
 		     (label text "Copyright (c) 2024 Louis Frayser <louis.frayser@gmail.com>"))
-		    ))))
+		    )))
