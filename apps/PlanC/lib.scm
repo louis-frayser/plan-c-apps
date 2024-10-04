@@ -21,26 +21,32 @@
 ;;; Settings
 (define *tz -25200) ;; offset in seconds from UTC
 (define %user% "frayser")
-
+(define %dbpath (string-append (system-directory) "/plan-c-sqlite.db"))
 (define (current-date-local-string)
   (date->string (current-date *tz) "~Y-~M-~d ~H:~M"))
 
 ;;; The on-disk database
 ;;; Verify an open db with tables created
-(define *db (sqlite-open "planc-sqlite.db"))
-(let* ((sql "SELECT name FROM sqlite_master WHERE type='table' AND name='assocs';")
-       (tabs (sqlite-query *db sql)))
-  (when (null-list? tabs)
-    (sqlite-query
-     *db
-     (string-append
-      "CREATE TABLE assocs("
-      " ctime timestamp,"
-      " category varchar(25),"
-      " activity varchar (25),"
-      " stime timestamp,"
-      " duration timestamp"
-      ");"))))
+(define *_db #f)
+(define (get-db)
+  (unless *_db
+    (set! *_db (sqlite-open %dbpath))
+    (let* ((sql "SELECT name FROM sqlite_master
+               WHERE type='table' AND name='assocs';")
+	   (tabs (sqlite-query *_db sql)))
+      (when (null-list? tabs)
+	(sqlite-query
+	 *_db
+	 (string-append
+	  "CREATE TABLE assocs("
+	  " ctime timestamp,"
+	  " category varchar(25),"
+	  " activity varchar (25),"
+	  " stime timestamp,"
+	  " duration timestamp,"
+	  " usr varchar (25)"
+	  ");")))))
+    *_db)
 
 (define (dbstore ctime cat act stm dur)
   (define (qq s)( string-append "'" s  "', " ))
@@ -50,4 +56,4 @@
 	  " VALUES ("
 	  (apply string-append (map qq (list ctime  cat  act  stm dur )))
 	  "'" %user% "' );")))
-	(sqlite-query *db sql)))
+	(sqlite-query (get-db) sql)))
