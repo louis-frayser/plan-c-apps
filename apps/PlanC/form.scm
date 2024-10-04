@@ -32,7 +32,7 @@
 		 (widgets
 		  "Activities"
 		  #f
-		  ("Done" main)
+		  ("Cancel" main)
 		  (spacer)
 
 		  ;; Show Category
@@ -43,6 +43,7 @@
 			     `(label text ,s)))
 		  (spacer)
 
+		  ;; Activity selection
 		  ,(lambda () (set! *category (dbget 'category))
 			   (if *category
 			       ;; Dropdown
@@ -67,6 +68,7 @@
 		  ;; Duration
 		  (timeentry text "Duration:" indent 0.4 id duration)
 
+		  ;; Apply defaults
 		  , (lambda ()
 		      (unless (dbget 'sdate)
 			(let ((d (current-date *tz)))
@@ -76,15 +78,27 @@
 		      `(spacer))
 
 		    ;; Submit
-		  (button text "Submit")
-		  (spacer)
+		    (button text "Submit"
+			    action
+			    ,(lambda()
+			       (if  (dbget 'activity)
+				    (let* ((ctm (current-date-local-string))
+					   (cat (dbget 'category))
+					   (act (dbget 'activity))
+					   (sdt (string-append
+						 (dbget 'sdate) " " (dbget 'stime-only)))
+					   (dur (dbget 'duration)))
+				      (dbstore ctm cat act sdt dur )
+				      'main)
+				    #f)))
+		    (spacer)
 ;;; About
-		  (about
-		   "About"
-		   ("Back" main)
-		   #f
-		   (spacer height 50)
-		   (label text "Plan-C App - time-tracking for musicians. Based on the uiform module in LambdaNative, a cross-platform development environment written in Scheme. See lambdanative.org")
-		   (spacer)
-		   (label text "Copyright (c) 2024 Louis Frayser <louis.frayser@gmail.com>"))
-		  ))))
+		    (about
+		     "About"
+		     ("Back" main)
+		     #f
+		     (spacer height 50)
+		     (label text "Plan-C App - time-tracking for musicians. Based on the uiform module in LambdaNative, a cross-platform development environment written in Scheme. See lambdanative.org")
+		     (spacer)
+		     (label text "Copyright (c) 2024 Louis Frayser <louis.frayser@gmail.com>"))
+		    ))))

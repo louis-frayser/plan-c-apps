@@ -7,6 +7,7 @@ clg(){ local x="$1"
         cd ~/apps
         unzip -o $(ls ~/.cache/lambdanative/packages/$x*.zip|tail -1)
         chmod +x $x/$x
+        echo "Invoking $x/$x..."
         $x/$x
 }
 pwd
