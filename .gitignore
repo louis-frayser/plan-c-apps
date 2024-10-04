@@ -27,3 +27,5 @@ attic
 Attic
 \#*
 .\#*
+*.dir
+fonts.*
