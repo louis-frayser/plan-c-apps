@@ -1,0 +1,7 @@
+#! /bin/sh
+set -e
+./Configure PlanC android
+make
+cd ~/release
+./make_release
+cp -pav $(ls -tr *.apk|tail -1) /tmp

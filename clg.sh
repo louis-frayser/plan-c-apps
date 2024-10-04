@@ -6,9 +6,10 @@ clg(){ local x="$1"
         SYSPATH=$${PWD} make -C ../lambdanative
         cd ~/apps
         unzip -o $(ls ~/.cache/lambdanative/packages/$x*.zip|tail -1)
-        chmod +x $x/$x
-        echo "Invoking $x/$x..."
-        $x/$x
+        cd $x
+        chmod +x $x
+        echo "Invoking $PWD/$x..."
+        ./$x
 }
 pwd
 xs=($(cd apps; ls))
