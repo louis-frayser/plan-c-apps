@@ -62,7 +62,7 @@
 
 ;;; Read the entire database
 (define (get-assocs) ; Return list of lists
-  (sqllite-query (get-db)
+  (sqlite-query (get-db)
 		 "SELECT ctime, category, activity,stime, duration \
                            FROM assocs \
                            ORDER by ctime desc;"))
