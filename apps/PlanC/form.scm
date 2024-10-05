@@ -3,7 +3,7 @@
 ;;; Main Page
 (define &main-page
   `(main
-    "Plan X"
+    "Plan C"
     ("About" about)
     ("Activities" catsel)
     (spacer height 200)
