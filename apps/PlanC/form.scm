@@ -50,13 +50,13 @@
     (label text "Copyright (c) 2024 Louis Frayser <louis.frayser@gmail.com>")))
 
 (define &history-page
-    `(history
-      "Activity History"
-      ("Activity" catsel)
-      #f
-      (spacer)
-      (list entries ,(db-get-history-lines))))
-
+  `(history
+    "Activity History"
+    ("Activity" catsel)
+    #f
+    (spacer)
+    ,(lambda()
+       `(list entries ,(db-get-history-lines)))))
 
 (define demouiform:example
   (list->table `(,&main-page

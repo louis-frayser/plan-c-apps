@@ -50,7 +50,7 @@
 				(dbget 'sdate) " " (dbget 'stime-only)))
 			  (dur (dbget 'duration)))
 		     (dbstore ctm cat act sdt dur )
-		     'main)
+		     'history)
 		   #f))))
 ;;; .............................................................
 (define &activities-page
