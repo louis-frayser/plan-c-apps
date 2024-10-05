@@ -1,6 +1,6 @@
 #! /bin/sh
 PCH=$PWD
-mkrel=$PCH/make_release .
+mkrel=$PCH/make_release
 set -e
 ./Configure PlanC android
 make
