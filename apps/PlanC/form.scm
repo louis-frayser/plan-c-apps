@@ -3,7 +3,7 @@
 ;;; Main Page
 (define &main-page
   `(main
-    "Plan C"
+    "Plan X"
     ("About" about)
     ("Activities" catsel)
     (spacer height 200)
@@ -17,7 +17,8 @@
   `(catsel
     "Activities"
     ("Back" main)
-    ("History" #f)
+    ("History" history)
+
     (spacer)
     (label text "For a New Activity..." size header)
     ;; Dropdown
@@ -49,18 +50,17 @@
     (label text "Copyright (c) 2024 Louis Frayser <louis.frayser@gmail.com>")))
 
 (define &history-page
-  (let(( lines (string-mapconcat (get-assocs) " "  (lambda(s)
-						     (setw s 16)))))
     `(history
       "Activity History"
-      ("Activity" widgets)
+      ("Activity" catsel)
       #f
-      (list entries ,lines))))
+      (spacer)
+      (list entries ,(db-get-history-lines))))
 
 
 (define demouiform:example
   (list->table `(,&main-page
-		 ,&entry-page
-		 ,&activities-page
+		 ,&entry-page      ;; Reads the Category when adding a new record to the db.
+		 ,&activities-page ;; Detail entry of a new record.
 		 ,&about-page
-		 ,&history-page)))
+		 ,&history-page)))  ;; a list of all records

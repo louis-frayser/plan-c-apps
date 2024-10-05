@@ -22,8 +22,10 @@
 (define *tz -25200) ;; offset in seconds from UTC
 (define %user% "frayser")
 (define %dbpath (string-append (system-directory) "/plan-c-sqlite.db"))
+
+;;; ------------------ Misc ---------------------------------------
 (define (current-date-local-string)
-  (date->string (current-date *tz) "~Y-~M-~d ~H:~M"))
+  (date->string (current-date *tz) "~Y-~m-~d ~H:~M"))
 
 
 ;;; -------------- Database ----------------------------------------
@@ -65,12 +67,27 @@
   (sqlite-query (get-db)
 		 "SELECT ctime, category, activity,stime, duration \
                            FROM assocs \
-                           ORDER by ctime desc;"))
+
+                          ORDER by stime desc;"))
+
+
+(define (db-get-history-lines)
+  ;; Data for a list widget.  Hope it has a monspace font.
+  ;; ctime,cat,act,stime,dur -> stime,activity,duration
+  ;; Provides stime,activity,duration
+  (let* ((raw-data (map cddr (get-assocs)))
+	 (->s-a-d (lambda (r)(list (setw (cadr r) 20) (setw (car r) 24) (caddr r) )))
+	 (rows (map ->s-a-d raw-data))
+	 ;;(rows raw-data)
+	 ;;(sw (lambda(s)(setw s 16))) ; Width of a date-time field is 16
+	 (row2line (lambda(r)(string-mapconcat r " " )))
+	 (lines (map row2line rows)))
+    lines ))
 
 ;;; ------------------------ Strings -------------------------------
 (define (setw string width)
   (define w (string-length string))
   (cond
-    ((< w width) (string-append string  (make-string  (- width w) #\space)))
+    ((< w width) (string-append string  (make-string  (- width w) #\_)))
     ((> w width) (substring string 0 width))
     (else string)))

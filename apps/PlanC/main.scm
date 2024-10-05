@@ -60,10 +60,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     (glgui-widget-set! gui form 'uiform demouiform:example)
 
     ;; Set the fonts
-    (glgui-widget-set! gui form 'fnt ascii_18.fnt)
-    (glgui-widget-set! gui form 'smlfnt ascii_14.fnt)
-    (glgui-widget-set! gui form 'hdfnt ascii_24.fnt)
-    (glgui-widget-set! gui form 'bigfnt ascii_40.fnt)
+    (glgui-widget-set! gui form 'fnt deja_14.fnt)
+    (glgui-widget-set! gui form 'smlfnt baha_14.fnt)
+    (glgui-widget-set! gui form 'hdfnt  baha_24.fnt)
+    (glgui-widget-set! gui form 'bigfnt baha_40.fnt)
 
     ;; Create the table to store data (default location for widget values)
     (glgui-widget-set! gui form 'database (make-table))
