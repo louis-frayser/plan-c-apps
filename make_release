@@ -16,9 +16,9 @@ basename=${unsigned##*/}
 stem0=${basename%.apk}
 stem=${stem0%-release-unsigned}
 aligned=${TMPDIR:=/var/tmp}/$stem-aligned.apk
-release_key=../.lambdanative/my-release-key.jks
+release_key=${HOME}/.lambdanative/my-release-key.jks
 release=$(get_release)
-
+cd $HOME/release
 ## Align
 rm -f $aligned
 zipalign -v -p 4 $unsigned $aligned
