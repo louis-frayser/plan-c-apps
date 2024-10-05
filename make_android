@@ -1,7 +1,10 @@
 #! /bin/sh
+PCH=$PWD
+mkrel=$PCH/make_release .
 set -e
 ./Configure PlanC android
 make
 cd ~/release
+install -m 0755 $mkrell .
 ./make_release
 cp -pav $(ls -tr *.apk|tail -1) /tmp

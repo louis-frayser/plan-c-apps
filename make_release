@@ -1,0 +1,32 @@
+#! /bin/sh
+
+get_release(){
+        for x in ~/PlanC/apps/* ~/lambdanative/apps/*
+        do if [ ${x##*/} = ${1:-$stem} ]
+           then VER=$(cat $x/VERSION)
+                break
+           fi
+         done
+        release=$stem-${VER:=0.1}.apk
+        echo $release
+}
+#../.lambdanative/tmp_build/bin/DemoUIForm-release-unsigned.apk
+unsigned=$(find $HOME/.lambdanative/tmp_build/bin -name "*apk")
+basename=${unsigned##*/}
+stem0=${basename%.apk}
+stem=${stem0%-release-unsigned}
+aligned=${TMPDIR:=/var/tmp}/$stem-aligned.apk
+release_key=../.lambdanative/my-release-key.jks
+release=$(get_release)
+
+## Align
+rm -f $aligned
+zipalign -v -p 4 $unsigned $aligned
+
+## Sign
+echo 2dcf501|apksigner sign --ks $release_key  --out $release $aligned
+
+## Verify
+if apksigner verify $release
+then echo $releawe ok.
+fi
