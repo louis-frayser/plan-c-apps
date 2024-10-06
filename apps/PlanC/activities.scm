@@ -1,14 +1,6 @@
 ;;; ------------------------------------------------------------
 ;;; Activities
 ;;; -----------------------------------------------------------
-(define &show-category
-  ;; A label to show the Category selected for new entries
-  (lambda () (set! *category (dbget 'category))
-	  (let ((s (if *category
-		       (string-append "Category: " *category)
-		       "Go select a category!")))
-	    `(label text ,s))))
-
 (define &activity-pulldown
   `    ;; Activity pulldown
   ,(lambda () (set! *category (dbget 'category))
@@ -42,26 +34,39 @@
   `(button text "Submit"
 	   action
 	   ,(lambda()
-	      (if  (dbget 'activity)
-		   (let* ((ctm (current-date-local-string))
-			  (cat (dbget 'category))
-			  (act (dbget 'activity))
-			  (sdt (string-append
-				(dbget 'sdate) " " (dbget 'stime-only)))
-			  (dur (dbget 'duration)))
-		     (dbstore ctm cat act sdt dur )
-		     'history)
-		   #f))))
+	      (let* ((ctm (current-date-local-string))
+		     (cat (dbget 'category))
+		     (act (dbget 'activity))
+		     (sdt (string-append
+			   (dbget 'sdate) " " (dbget 'stime-only)))
+		     (dur (dbget 'duration)))
+		(cond ((and cat activity)
+		       (dbstore ctm cat act sdt dur )
+		       'history)
+		      (else
+		       #f))))))
+;;; .............................................................
+(define &history-page
+  `(history
+    "Activity History"
+    ("Activities" activity)
+    ("Main" main)
+    (spacer)
+    ,(lambda()
+       `(list entries ,(db-get-history-lines)))))
 ;;; .............................................................
 (define &activities-page
 ;;; Activity selection and detail entry
-  `(widgets
+  `(activity
     "Activity Detail"
-    ("Back" catsel)
     ("Cancel" main)
+    ("History" history)
     (spacer)
 
-    ,&show-category
+    ;; Dropdown
+    (dropdown id category
+	      label "Pick a category:"
+	      entries ,*categories)
     (spacer)
 
     ,&activity-pulldown
@@ -75,7 +80,6 @@
     ;; Duration
     (timeentry text "Duration:" indent 0.4 id duration)
     ,&apply-defaults ; <- includes (spacer)
-
 
     ,&submit-button
     (spacer)))

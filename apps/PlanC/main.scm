@@ -57,7 +57,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     ;; Set the sandbox up to be the current directory and use the above example as the script
     (glgui-widget-set! gui form 'sandbox (system-directory))
-    (glgui-widget-set! gui form 'uiform demouiform:example)
+    (glgui-widget-set! gui form 'uiform mainform)
 
     ;; Set the fonts
     (glgui-widget-set! gui form 'fnt deja_14.fnt)
