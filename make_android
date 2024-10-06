@@ -1,10 +1,10 @@
 #! /bin/sh
-PCH=$PWD
-mkrel=$PCH/make_release
 set -e
 ./Configure PlanC android
 make
+mkdir -p ~/release
+install -m 0554 make_release ~/release
 cd ~/release
-install -m 0755 $mkrell .
 ./make_release
-cp -pav $(ls -tr *.apk|tail -1) /tmp
+echo "Copying result apk to /var/tmp  for easy upload"
+cp -pav $(ls -tr *.apk|tail -1) /var/tmp

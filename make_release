@@ -28,5 +28,5 @@ echo 2dcf501|apksigner sign --ks $release_key  --out $release $aligned
 
 ## Verify
 if apksigner verify $release
-then echo $releawe ok.
+then echo $release ok.
 fi
