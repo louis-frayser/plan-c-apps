@@ -53,7 +53,7 @@
   `(history
     "Activity History"
     ("Activity" catsel)
-    #f
+    ("Main" main)
     (spacer)
     ,(lambda()
        `(list entries ,(db-get-history-lines)))))
