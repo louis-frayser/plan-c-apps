@@ -40,7 +40,7 @@
 		     (sdt (string-append
 			   (dbget 'sdate) " " (dbget 'stime-only)))
 		     (dur (dbget 'duration)))
-		(cond ((and cat activity)
+		(cond ((and cat act)
 		       (dbstore ctm cat act sdt dur )
 		       'history)
 		      (else
@@ -49,7 +49,7 @@
 (define &history-page
   `(history
     "Activity History"
-    ("Activities" activity)
+    ("Activities" activities)
     ("Main" main)
     (spacer)
     ,(lambda()
@@ -57,7 +57,7 @@
 ;;; .............................................................
 (define &activities-page
 ;;; Activity selection and detail entry
-  `(activity
+  `(activities
     "Activity Detail"
     ("Cancel" main)
     ("History" history)

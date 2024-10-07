@@ -5,7 +5,7 @@
   `(main
     "Plan C"
     ("About" about)
-    ("Activities" activity)
+    ("Activities" activities)
     (spacer height 200)
     (label text "Hello from LambdaNative" size header)
     (spacer)
