@@ -1,5 +1,5 @@
-# Plan C 
-AppsThis project houses open-source (BSD licensed) music-practice-related applications,
+# Plan C Apps
+This project houses open-source (BSD licensed) music-practice-related applications,
 Created using the [LambdaNative](http://www.lambdanative.org) cross-platform development environment.
 
 ## Applications
