@@ -2,12 +2,31 @@
 ;;; Activities
 ;;; -----------------------------------------------------------
 ;; Routine to Apply defaults
-(define (apply-activity-defaults)
-  (unless (dbget 'sdate)
-    (let ((d (current-date *tz)))
-      (dbset 'sdate (date->string d "~Y-~m-~d"))
-      (dbset 'stime-only (date->string d "~H:~M") )
-      (dbset 'duration "00:36"))))
+#;(define (apply-activity-defaults)
+(unless (dbget 'sdate)
+(let ((d (current-date *tz)))
+(dbset 'sdate (date->string d "~Y-~m-~d"))
+(dbset 'stime-only (date->string d "~H:~M") )
+(dbset 'duration "00:36"))))
+
+
+
+(define apply-activity-defaults
+  (lambda () ;; FIXME: Does not handle >24 hrs rollover
+    (unless *current-activity
+      (let* ((lastr (db-get-last))
+	     (d (if lastr #f (current-date *tz)))
+	     (ds (if lastr (fourth lastr) #f))
+	     (dur (if lastr (fifth lastr) #f))
+	     (dts(if lastr (substring ds 0 10) (date->string d "~Y-~m-~d")))
+	     (tms(if lastr (substring ds 11 16) (date->string d "~H:~M") ))
+	     (tms+dur (if lastr (string-time+ tms dur))))
+	(set! *category "Music Practice")
+	(dbset 'activity #f)
+	(dbset 'sdate dts)
+	(dbset 'stime-only tms+dur)
+	(dbset 'duration "00:30")))))
+
 ;;; ------------------------------------------------------------
 (define &activity-pulldown
   `    ;; Activity pulldown
@@ -21,10 +40,10 @@
 	 ;; Button with action callback that returns
 	 ;; the page you want to go to
 	 `(label h 75
-		  size header
-		  indent 0.05
-		  rounded #t
-		  text "Select a Category 1st!"))))
+		 size header
+		 indent 0.05
+		 rounded #t
+		 text "Select a Category 1st!"))))
 ;;; ..........................................................
 (define &submit-button
   ;; Submit
@@ -39,6 +58,7 @@
 		     (dur (dbget 'duration)))
 		(cond ((and cat act)
 		       (dbstore ctm cat act sdt dur )
+		       (apply-activity-defaults)
 		       'history)
 		      (else
 		       #f))))))
