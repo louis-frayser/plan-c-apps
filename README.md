@@ -1,6 +1,5 @@
-# Plan C Apps($SRC dir is shoulb be named PlanC or Lucho)
-This project houses open-source (BSD licensed) music-practice-related applications,
-created using the [LambdaNative](http://www.lambdanative.org) cross-platform development environment.
+# Plan C AppsThis project houses open-source (BSD licensed) music-practice-related applications,
+Created using the [LambdaNative](http://www.lambdanative.org) cross-platform development environment.
 
 ## Applications
 * [PlanC](apps/PlanC): An application for recording details of music practice
@@ -12,6 +11,8 @@ Plan C is derived from a web-based Racket (scheme) app of the same name.
 The original app is on [GitHub](https://github.com/louis-frayser/plan-c.git)
 
 ## Install
+The sources should be extacted to a directory names PlanC or Lucho
+
 ### Fonts
 I copied the Bahaus fonts to ~/lambdanative/fonts/Bahaus and never tried using them from the local fonts dir.
 
