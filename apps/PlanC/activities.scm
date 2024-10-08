@@ -1,32 +1,30 @@
 ;;; ------------------------------------------------------------
 ;;; Activities
 ;;; -----------------------------------------------------------
-
 ;; Routine to Apply defaults
 (define (apply-activity-defaults)
-    (unless (dbget 'sdate)
-      (let ((d (current-date *tz)))
-        (dbset 'sdate (date->string d "~Y-~m-~d"))
-	(dbset 'stime-only (date->string d "~H:~M") )
-	(dbset 'duration "00:36"))))
+  (unless (dbget 'sdate)
+    (let ((d (current-date *tz)))
+      (dbset 'sdate (date->string d "~Y-~m-~d"))
+      (dbset 'stime-only (date->string d "~H:~M") )
+      (dbset 'duration "00:36"))))
 ;;; ------------------------------------------------------------
 (define &activity-pulldown
   `    ;; Activity pulldown
-  ,(lambda () (set! *category (dbget 'category))
-	   (if *category
-	       ;; Dropdown
-	       `(dropdown id activity
-			  label "Pick an activity:"
-			  entries ,(activities-for-category ))
-
-	       ;; Button with action callback that returns
-	       ;; the page you want to go to
-	       `(button h 75
-			size header
-			indent 0.05
-			rounded #t
-			text "Select a Category 1st!"
-			action ,(lambda () 'catsel)))))
+  ,(lambda ()
+     (set! *category (dbget 'category))
+     (if *category
+	 ;; Dropdown
+	 `(dropdown id activity
+		    label "Pick an activity:"
+		    entries ,(activities-for-category ))
+	 ;; Button with action callback that returns
+	 ;; the page you want to go to
+	 `(label h 75
+		  size header
+		  indent 0.05
+		  rounded #t
+		  text "Select a Category 1st!"))))
 ;;; ..........................................................
 (define &submit-button
   ;; Submit
