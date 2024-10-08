@@ -1,16 +1,6 @@
 ;;; ------------------------------------------------------------
 ;;; Activities
 ;;; -----------------------------------------------------------
-;; Routine to Apply defaults
-#;(define (apply-activity-defaults)
-(unless (dbget 'sdate)
-(let ((d (current-date *tz)))
-(dbset 'sdate (date->string d "~Y-~m-~d"))
-(dbset 'stime-only (date->string d "~H:~M") )
-(dbset 'duration "00:36"))))
-
-
-
 (define apply-activity-defaults
   (lambda () ;; FIXME: Does not handle >24 hrs rollover
     (unless *current-activity
