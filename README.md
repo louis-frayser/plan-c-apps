@@ -25,9 +25,9 @@ I copied the Bahaus fonts to ~/lambdanative/fonts/Bahaus and never tried using t
 
 ### Caveats
 1. There is a tool dx that I had to copy from an older version of the sdk.  D8 is what the new tool is called, but the framework currently want's the missing dx.
-2. Fonts can be local in ${PlanC}/fonts of then can be placed in ../lambdanative/fonts to be shared with all projects.
+2. Fonts can be local in ${PlanC}/fonts or they can be placed in ../lambdanative/fonts to be shared with all projects.
    If a font is in both places there will be a message about the onts in lambdanative shaddowin the local font in PlanC.
-3.  On the 1st two font line in apps/${App}/FONTS are used.
-    The format is <relative font.path> a 7,8 or a set name  a list of sizes (14,18,24 etc) then an alias.
-    See main.scm to see how the fonts are used.  This app uses Bahaus of most things and somethin close to monspaced for list
-    widgets. It avoids cmss becaue it doesn't display then symbols <,> correctly.
+3.  Only the 1st two font lines in apps/${App}/FONTS are used.
+    The format is <relative font.path> a 7,8 or a set name and a list of sizes (14,18,24 etc) then an alias.
+    See main.scm to see how the fonts are used.  This app uses Bahaus for most things and something close to monspaced for lists
+    widgets. It avoids cmss becaue that doesn't display the symbols <,> correctly.
