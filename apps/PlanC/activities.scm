@@ -1,6 +1,15 @@
 ;;; ------------------------------------------------------------
 ;;; Activities
 ;;; -----------------------------------------------------------
+
+;; Routine to Apply defaults
+(define (apply-activity-defaults)
+    (unless (dbget 'sdate)
+      (let ((d (current-date *tz)))
+        (dbset 'sdate (date->string d "~Y-~m-~d"))
+	(dbset 'stime-only (date->string d "~H:~M") )
+	(dbset 'duration "00:36"))))
+;;; ------------------------------------------------------------
 (define &activity-pulldown
   `    ;; Activity pulldown
   ,(lambda () (set! *category (dbget 'category))
@@ -18,17 +27,7 @@
 			rounded #t
 			text "Select a Category 1st!"
 			action ,(lambda () 'catsel)))))
-
-(define &apply-defaults
-  ;; Apply defaults
-  (lambda ()
-    (unless (dbget 'sdate)
-      (let ((d (current-date *tz)))
-        (dbset 'sdate (date->string d "~Y-~m-~d"))
-	(dbset 'stime-only (date->string d "~H:~M") )
-	(dbset 'duration "00:36")))
-    `(spacer)))
-
+;;; ..........................................................
 (define &submit-button
   ;; Submit
   `(button text "Submit"
@@ -45,15 +44,6 @@
 		       'history)
 		      (else
 		       #f))))))
-;;; .............................................................
-(define &history-page
-  `(history
-    "Activity History"
-    ("Activities" activities)
-    ("Main" main)
-    (spacer)
-    ,(lambda()
-       `(list entries ,(db-get-history-lines)))))
 ;;; .............................................................
 (define &activities-page
 ;;; Activity selection and detail entry
@@ -79,8 +69,16 @@
 
     ;; Duration
     (timeentry text "Duration:" indent 0.4 id duration)
-    ,&apply-defaults ; <- includes (spacer)
+    (spacer)
 
     ,&submit-button
     (spacer)))
-;;; -----------------------------------------------------------
+;;; ----------------------------------------------------------
+(define &history-page
+  `(history
+    "Activity History"
+    ("Activities" activities)
+    ("Main" main)
+    (spacer)
+    ,(lambda()
+       `(list entries ,(db-get-history-lines)))))

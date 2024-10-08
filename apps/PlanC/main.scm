@@ -39,7 +39,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 (include "form.scm")
 
-
 (define gui #f)
 (define form #f)
 
@@ -67,7 +66,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     ;; Create the table to store data (default location for widget values)
     (glgui-widget-set! gui form 'database (make-table))
-
+    (apply-activity-defaults)
   )
 ;; events
   (lambda (t x y)
